@@ -43,7 +43,7 @@ loadanal_dsp("tk.realclick.co.kr/tk_comm.js?dspu="+dspu+"&dspt="+dspt+"&dspo="+d
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIP자산운용</title>
+    <title>한국경제TV</title>
     <link rel="stylesheet" href="reset.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
@@ -52,25 +52,52 @@ loadanal_dsp("tk.realclick.co.kr/tk_comm.js?dspu="+dspu+"&dspt="+dspt+"&dspo="+d
     <img src="1.png" />
     <div style="position: relative;">
         <img src="2.png" />
-        <form id="submission-form">
+        <div id="submission-div">
             <input placeholder="이름 입력" id="name"
                 style="position: absolute;top:48.2%;left:23%;height:5%;width:40%;border:none" />
             <input id="phone0" style="display:none" value="010" />
             <input id="phone1" style="position: absolute;top:56.2%;left:36%;height:5%;width:17%;border:none" />
             <input id="phone2" style="position: absolute;top:56.2%;left:57%;height:5%;width:17%;border:none" />
-            <button id="sendBtn" type="submit"
+            <button id="sendBtn" type="submit" onclick="submit()"
                 style="position: absolute;top:75.7%;left:23%;height:7%;width:53%;border:none;background:transparent"></button>
-        </form>
+        </div>
     </div>
 
+    <script>
+	function submit() {
+        var name = document.getElementById("name")?.value;
+		var phone = document.getElementById("phone0")?.value + document.getElementById("phone1")?.value + document.getElementById("phone2")?.value ;
+        if (name && phone) {
+			$.ajax({
+				type: "GET",
+				url: "https://script.google.com/macros/s/AKfycbzKfNbSeEazSpgMt7roZi8j-tkT87jLlTPci9Vjz0KfHz085_hjfkXqVIT6LV2ZyDb2fQ/exec",
+				data: {
+					"이름": name,
+					"연락처": phone,
+				},
+				success: function(response){
+					console.log("ok");
+				}
+			});
+            alert('신청이 완료되었습니다.');
+            location.reload();
+		} else {
+			alert('모든 항목을 입력해주세요.');
+		}
+	}
+</script>
+
     <img src="3.png" />
-    
+    <div class="video-wrap">
+        <iframe id="video" width="100%" height="315" src="https://www.youtube.com/embed/xGM0TK0XSSI?si=q4vyC9x9c8XlUXVo"
+            frameborder="0" allow="encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
     <img src="4.png" />
     <img src="5.png" />
     <img src="6.png" />
     <script>
         $(document).ready(function () {
-            $('#submission-form').on('submit', function (e) {
+            $('#submission-div').on('submit', function (e) {
                 e.preventDefault();
                 const phone = '010'
                 var data = {
